@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <fieldset>
+        <legend>身份验证</legend>
+        <form>
+            <label for="UserName">用户名:</label><input type="text" name="username" id="userName" value="zhuangyan" />
+            <br />
+            <br />
+            <label for="Password">密码:</label><input type="password" name="password" id="password" value="yanfa2bu" />
+            <br />
+            <br />
+        </form>
+        <button id="login">登录</button>
+    </fieldset>
+    <br />
+
+    <script>
+        $(function () {
+            //调用api站点的登录接口,接口在登录成功后返回一个token。
+            $("#login").on("click", function () {
+                $.ajax({
+                    url: "http://app-srv-api.qunke.org/api/api-token-auth/",
+                    data: $("form").serialize(),
+                    method: "post",
+                    success: function (data) {
+                        if (data.token) {
+                            localStorage.token=data.token;
+                            alert("登录成功");
+                            location.href="index.html";
+                        } else {
+                            alert("登录失败:" + data.Message);
+                        }
+                    },
+                    error:function(){
+                        alert("登录失败");
+                    }
+                });
+            });            
+        });
+    </script>
+</body>
+</html>

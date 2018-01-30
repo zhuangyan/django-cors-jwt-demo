@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <fieldset>
+        <legend>调用接口</legend>
+        <button id="invoke">调用接口</button>
+    </fieldset>
+    <script>
+        $(function () {
+           //调用api站点的获取数据的接口，该接口要求身份验证。
+            $("#invoke").on("click", function () {
+                $.ajax({
+                    url: "http://172.18.1.173:8000/users/",
+                    method: "get",
+                    headers:{
+                        'Authorization':'JWT '+localStorage.token  //注意：jwt后面有个空格
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    
+                });
+            });
+        });
+    </script>
+</body>
+</html>
